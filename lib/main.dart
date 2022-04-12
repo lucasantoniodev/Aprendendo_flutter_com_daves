@@ -4,50 +4,35 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Aplicativo exemplo Scaffold'),
+          title: const Text('Stack APP'),
         ),
-        // Items na mesma linha Horizontal (conteudo, conteudo)
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            Center(
-              child: Text(
-                'Coluna 1',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 16, 38, 234),
-                  fontSize: 20,
-                ),
-              ),
+        body: Stack(
+          // fit: StackFit.expand,
+          // alignment: AlignmentDirectional.center, // Alinhar o primeiro em relação ao segundo
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.blue,
             ),
-            Center(
-              child: Text(
-                'Coluna 2',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 16, 38, 234),
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Center(
-              child: Text(
-                'Coluna 3',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 16, 38, 234),
-                  fontSize: 20,
-                ),
+            Positioned(
+              // top: 20,
+              // left: 20,
+              // right: -30,
+              left: 50,
+              top: 50,
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.red,
               ),
             ),
           ],
