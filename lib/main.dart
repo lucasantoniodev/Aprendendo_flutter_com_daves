@@ -19,11 +19,38 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Aplicativo exemplo Scaffold'),
         ),
-        body: const Center(
-          child: Text(
-            'Meu aplicativo',
-            style: TextStyle(color: Colors.indigoAccent),
-          ),
+        // Items na mesma linha Horizontal (conteudo, conteudo)
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            Center(
+              child: Text(
+                'App 1',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 16, 38, 234),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                'App 2',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 16, 38, 234),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                'App 3',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 16, 38, 234),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
