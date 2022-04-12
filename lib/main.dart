@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       case '+':
         operacao = tecla;
         primeiroNumero = double.parse(numero);
-         setState(() {
+        setState(() {
           numero = '0';
         });
         break;
@@ -59,9 +59,24 @@ class _MyAppState extends State<MyApp> {
         if (operacao == '+') {
           resultado = primeiroNumero + double.parse(numero);
         }
-        setState(() {
-          numero = resultado.toString();
-        });
+
+        String resultadoString = resultado.toString();
+        // 3.0
+
+        List<String> resultadoPartes = resultadoString.split('.');
+        print(resultadoPartes);
+
+        if (int.parse(resultadoPartes[1]) * 1 == 0) {
+          print('Parte fracionária zero');
+
+          setState(() {
+            numero = int.parse(resultadoPartes[0]).toString();
+          });
+        } else {
+          setState(() {
+            numero = resultado.toString();
+          });
+        }
         break;
       case '-':
       case '*':
