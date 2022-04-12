@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String numero = 'Número';
+  String numero = '0';
 
   double primeiroNumero = 0.0;
 
@@ -47,7 +47,18 @@ class _MyAppState extends State<MyApp> {
           numero = '0';
         });
         break;
+      case '<':
+        setState(() {
+          if (numero.isNotEmpty) {
+          numero = numero.substring(0, numero.length - 1);
+          }
+
+        });
+        break;
       case '+':
+      case '-':
+      case 'x':
+      case '/':
         operacao = tecla;
         primeiroNumero = double.parse(numero);
         setState(() {
@@ -56,8 +67,22 @@ class _MyAppState extends State<MyApp> {
         break;
       case '=':
         double resultado = 0.0;
+
+        if (operacao == '/') {
+          if (double.parse(numero) * 1 == 0) {
+            print('Erro: divisão por zero');
+            return;
+          }
+        }
+
         if (operacao == '+') {
           resultado = primeiroNumero + double.parse(numero);
+        } else if (operacao == '-') {
+          resultado = primeiroNumero - double.parse(numero);
+        } else if (operacao == 'x') {
+          resultado = primeiroNumero * double.parse(numero);
+        } else if (operacao == '/') {
+          resultado = primeiroNumero / double.parse(numero);
         }
 
         String resultadoString = resultado.toString();
@@ -78,9 +103,6 @@ class _MyAppState extends State<MyApp> {
           });
         }
         break;
-      case '-':
-      case '*':
-      case '/':
       default:
         break;
     }
