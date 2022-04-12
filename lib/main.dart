@@ -150,11 +150,8 @@ class _MyAppState extends State<MyApp> {
                 ),
                 GestureDetector(
                   onTap: () => calcular('<'),
-                  child: Text(
-                    '<',
-                    style: TextStyle(fontSize: 48),
+                  child: Image.asset('assets/images/backspace.png',width: 72,color: Colors.blue),
                   ),
-                ),
               ],
             ),
             Row(
