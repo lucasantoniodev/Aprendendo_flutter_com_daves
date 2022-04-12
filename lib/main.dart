@@ -19,65 +19,34 @@ class _MyAppState extends State<MyApp> {
   void calcular(String tecla) {
     switch (tecla) {
       case '0':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '1':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '2':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '3':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '4':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '5':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '6':
-        setState(() {
-          numero += tecla;
-        });
-        break;
       case '7':
+      case '8':
+      case '9':
+      case '.':
         setState(() {
           numero += tecla;
-        });
-        break;
-      case '8':
-      setState(() {
-          numero += tecla;
-        });
-        break;
-      case '9':
-      setState(() {
-          numero += tecla;
+
+          if (!numero.contains('.')) {
+            int numeroInt = int.parse(numero);
+            numero = numeroInt.toString();
+          }
         });
         break;
       case 'ac':
         setState(() {
-          numero = '|';
+          numero = '0';
         });
         break;
       case '+':
       case '-':
       case '*':
       case '/':
-      case '.':
       default:
         break;
     }
