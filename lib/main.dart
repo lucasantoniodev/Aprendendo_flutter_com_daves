@@ -16,6 +16,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String numero = 'Número';
 
+  double primeiroNumero = 0.0;
+
+  String operacao = '';
+
   void calcular(String tecla) {
     switch (tecla) {
       case '0':
@@ -44,6 +48,21 @@ class _MyAppState extends State<MyApp> {
         });
         break;
       case '+':
+        operacao = tecla;
+        primeiroNumero = double.parse(numero);
+         setState(() {
+          numero = '0';
+        });
+        break;
+      case '=':
+        double resultado = 0.0;
+        if (operacao == '+') {
+          resultado = primeiroNumero + double.parse(numero);
+        }
+        setState(() {
+          numero = resultado.toString();
+        });
+        break;
       case '-':
       case '*':
       case '/':
