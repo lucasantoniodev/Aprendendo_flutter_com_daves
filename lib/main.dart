@@ -20,12 +20,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Aplicativo exemplo Scaffold'),
         ),
         // Items na mesma linha Horizontal (conteudo, conteudo)
-        body: Row(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Center(
               child: Text(
-                'App 1',
+                'Coluna 1',
                 style: TextStyle(
                   color: Color.fromARGB(255, 16, 38, 234),
                   fontSize: 20,
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
             ),
             Center(
               child: Text(
-                'App 2',
+                'Coluna 2',
                 style: TextStyle(
                   color: Color.fromARGB(255, 16, 38, 234),
                   fontSize: 20,
@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
             ),
             Center(
               child: Text(
-                'App 3',
+                'Coluna 3',
                 style: TextStyle(
                   color: Color.fromARGB(255, 16, 38, 234),
                   fontSize: 20,
