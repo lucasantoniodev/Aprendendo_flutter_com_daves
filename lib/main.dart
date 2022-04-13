@@ -9,8 +9,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Tela1(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Tela1(),
+        '/tela2': (context) => const Tela2(),
+        '/tela3': (context) => const Tela3(),
+      },
     );
   }
 }
@@ -21,6 +27,7 @@ class Tela1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Tela 1'),
@@ -28,12 +35,7 @@ class Tela1 extends StatelessWidget {
         body: Center(
           child: ElevatedButton(
             child: const Text('Tela 1'),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: ((context) => const Tela2()),
-              ),
-            ),
+            onPressed: () => Navigator.pushNamed(context, '/tela2'),
           ),
         ),
       ),
@@ -47,6 +49,7 @@ class Tela2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.yellow,
         appBar: AppBar(
@@ -54,8 +57,42 @@ class Tela2 extends StatelessWidget {
           backgroundColor: Colors.red,
         ),
         body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: const Text('Tela 1'),
+                onPressed: () => Navigator.pop(context),
+              ),
+              const SizedBox(width: 40),
+              ElevatedButton(
+                child: const Text('Tela 3'),
+                onPressed: () => Navigator.pushNamed(context,'/tela3'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Tela3 extends StatelessWidget {
+  const Tela3({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.yellow,
+        appBar: AppBar(
+          title: const Text('Tela 3'),
+          backgroundColor: Colors.red,
+        ),
+        body: Center(
           child: ElevatedButton(
-            child: const Text('Tela 2'),
+            child: const Text('Voltar para tela 2'),
             onPressed: () => Navigator.pop(context),
           ),
         ),
