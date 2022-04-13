@@ -57,14 +57,14 @@ class Tela2 extends StatelessWidget {
           backgroundColor: Colors.red,
         ),
         body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Wrap(
+           spacing: 10,
             children: [
               ElevatedButton(
                 child: const Text('Tela 1'),
                 onPressed: () => Navigator.pop(context),
               ),
-              const SizedBox(width: 40),
+              // const SizedBox(width: 40),
               ElevatedButton(
                 child: const Text('Tela 3'),
                 onPressed: () => Navigator.pushNamed(context,'/tela3'),
