@@ -15,13 +15,15 @@ class MyApp extends StatelessWidget {
         textDirection:
             TextDirection.ltr, // Texto da esquerda para direita (Padrão)
         style: TextStyle(
-          height: 2.15, // DISTÂNCIA ENTRE OS TEXTOS !!!!!!! 
+          height: 2.15, // DISTÂNCIA ENTRE OS TEXTOS !!!!!!!
           fontSize: 100, // Alterar tamanho do texto (px);
           fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.bold, // Alterar o peso/espessura do texto "negrito";
+          fontWeight:
+              FontWeight.bold, // Alterar o peso/espessura do texto "negrito";
           color: Colors.blue, // Cor do texto
           backgroundColor: Colors.yellow.shade700,
-          decoration: TextDecoration.underline
+          decoration: TextDecoration.underline,
+          fontFamily: 'Nasalization-rg', // Font do texto da pasta assets configurado no pubspec.yaml
         ),
       ),
     );
