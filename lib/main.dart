@@ -1,44 +1,17 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
-  runApp(const MyApp());
-}
+  print(1);
+  print(2);
+  print(3);
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  // Classe<Tipo do retorno> Nome da função = Classe.método;
+  // Variável assíncrona, aguarda 3 segundos para depois executar.
+  Future<void> quatro = Future.delayed(
+    const Duration(seconds: 3),
+  );
+  // Executando a variável pelo método then
+  quatro.then((value) => print(4));
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // Definindo um tema padrão para todo seu projeto
-        primarySwatch: Colors.red, // Cor do tema
-
-        fontFamily: 'Nasalization-rg', // Font do tema
-
-        brightness: Brightness.light, // Brilho de fundo
-
-        primaryColor: Colors.blue,
-
-        appBarTheme: const AppBarTheme(
-          // Propriedade para personalizar o padrão do tema
-
-          backgroundColor: Colors.yellow,
-        ),
-
-      ),
-      home: Scaffold(
-        // backgroundColor: Colors.indigoAccent, // Cor de fundo do scaffold
-        
-        appBar: AppBar(title: const Text('Aplicativo'),
-        
-        backgroundColor: Colors.green,
-
-        ),
-      ),
-    );
-
-    //
-  }
+  print(5);
 }
