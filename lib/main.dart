@@ -1,60 +1,60 @@
-import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  Uri uri = Uri.https('jsonplaceholder.typicode.com', '/todos/');
-
-  final future = http.get(uri);
-
-  future.then((response) {
-    if (response.statusCode == 200) {
-      print('Página carregada, OK!');
-
-      // print(json.decode(response.body));
-
-      // var teco = json.decode(response.body) as List;
-      List lista = json.decode(response.body);
-
-      // var minhaLista = Todos(lista);
-      Todos minhaLista = Todos(lista);
-      print(minhaLista.todos?[0]);
-
-      minhaLista.todos?.forEach((element) {
-        // print(element);
-
-        // var todo = Todo.fromJson(element);
-        Todo todo = Todo.fromJson(element);
-        print(todo.title);
-      });
-    } else {
-      print('erro');
-    }
-  });
+void main() {
+  runApp(const MyApp());
 }
 
-class Todos {
-  final List? todos;
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  Todos(this.todos);
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-class Todo {
-  final int? userId;
-  final int? id;
-  final String? title;
-  final bool? completed;
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(brightness: Brightness.dark),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Página de login'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Insira seus dados'),
+              TextField(
+                decoration: InputDecoration(
+                  hintText:  'Login',
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.blue,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.yellow)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.yellow)),
+                ),
+              ),
+              
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.ac_unit_outlined),
+                ),
+              ),
 
-  Todo(this.userId, this.id, this.title, this.completed);
-
-  factory Todo.fromJson(Map json) {
-    return Todo(json['userId'], json['id'], json['title'], json['completed']);
+              Text('Esqueceu sua senha?'),
+              ElevatedButton(
+                  onPressed: () => print('Entrou'), child: Text('Entrar'))
+            ],
+          ),
+        ),
+      ),
+    );
   }
-
-  Map toJson() => {
-        'userId': this.userId,
-        'id': this.id,
-        'title': this.title,
-        'completed': this.completed,
-      };
 }
