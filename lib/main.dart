@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<void> main() async {
-  Uri uri = Uri.https('jsonplaceholder.typicode.com', '/todos/1');
+  Uri uri = Uri.https('jsonplaceholder.typicode.com', '/todos/');
 
   final future = http.get(uri);
 
@@ -11,15 +11,32 @@ Future<void> main() async {
     if (response.statusCode == 200) {
       print('Página carregada, OK!');
 
-      Map<String, dynamic> dados = json.decode(response.body);
-      Todo todo = Todo.fromJson(dados);
+      // print(json.decode(response.body));
 
-      print(todo.title);
-      print(todo.toJson());
+      // var teco = json.decode(response.body) as List;
+      List lista = json.decode(response.body);
+
+      // var minhaLista = Todos(lista);
+      Todos minhaLista = Todos(lista);
+      print(minhaLista.todos?[0]);
+
+      minhaLista.todos?.forEach((element) {
+        // print(element);
+
+        // var todo = Todo.fromJson(element);
+        Todo todo = Todo.fromJson(element);
+        print(todo.title);
+      });
     } else {
       print('erro');
     }
   });
+}
+
+class Todos {
+  final List? todos;
+
+  Todos(this.todos);
 }
 
 class Todo {
