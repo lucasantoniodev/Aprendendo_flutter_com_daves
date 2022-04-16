@@ -1,17 +1,28 @@
+// ignore_for_file: invalid_return_type_for_catch_error
+
 import 'dart:async';
+import 'package:http/http.dart' as http;
 
-void main() {
-  print(1);
-  print(2);
-  print(3);
+Future<void> main() async {
+  // SITE + PÁGINA + PARÂMETROS
+  final uri = Uri.https('www.example.com', '/api', {'q': 'flutter','parametro2': 'valor'});
+  print(uri);
+  final future = http.get(uri);
 
-  // Classe<Tipo do retorno> Nome da função = Classe.método;
-  // Variável assíncrona, aguarda 3 segundos para depois executar.
-  Future<void> quatro = Future.delayed(
-    const Duration(seconds: 3),
-  );
-  // Executando a variável pelo método then
-  quatro.then((value) => print(4));
+  future.then((response) {
+    if (response.statusCode == 200) {
+      print('Página carregada com sucesso!');
+      print(response.body); // Código fonte HTML  da página
+    } else if (response.statusCode == 301) {
+      print('Página movida permanentemente');
+    } else if (response.statusCode == 404) {
+      print('Página não encontrada');
+    } else if (response.statusCode == 500) {
+      print('Erro interno no servidor');
+    }
+  });
 
-  print(5);
+  future.catchError((onError) => print('Erro!'));
+  // Quando terminar a requisição
+  future.whenComplete(() => print('Future completo!'));
 }
