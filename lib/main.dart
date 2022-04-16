@@ -5,8 +5,11 @@ import 'package:http/http.dart' as http;
 
 Future<void> main() async {
   // SITE + PÁGINA + PARÂMETROS
-  final uri = Uri.https('www.example.com', '/api', {'q': 'flutter','parametro2': 'valor'});
-  print(uri);
+  final uriComRetorno404 = Uri.https(
+      'www.example.com', '/api', {'q': 'flutter', 'parametro2': 'valor'});
+  print(uriComRetorno404);
+
+  final uri = Uri.https('www.example.com', '');
   final future = http.get(uri);
 
   future.then((response) {
