@@ -13,18 +13,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool? showPassword = true;
+  String? email;
+  bool aceitoTermos = false;
 
   @override
   Widget build(BuildContext context) {
-    String? email;
-    
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(brightness: Brightness.dark),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Página de login'),
+          title: Text('Página de Cadastro'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -37,11 +36,10 @@ class _MyAppState extends State<MyApp> {
               TextField(
                 onChanged: (value) => {
                   // print(text)
-                  if(value.contains('@')){
-                    print('Email válido')
-                  } else {
-                    print('Email inválido')
-                  },
+                  if (value.contains('@'))
+                    {print('Email válido')}
+                  else
+                    {print('Email inválido')},
 
                   email = value,
                 },
@@ -55,13 +53,28 @@ class _MyAppState extends State<MyApp> {
                 ),
                 obscureText: showPassword!,
               ),
-              Text('Esqueceu sua senha?'),
+              Row(
+                children: [
+                  Checkbox(
+                      value: aceitoTermos,
+                      onChanged: (bool? checked) =>
+                          setState(() => aceitoTermos = checked!)),
+                  Text('Concordo com os termos de uso do app'),
+                ],
+              ),
               ElevatedButton(
-                  onPressed: () => setState(() {
-                        showPassword = !showPassword!;
-                        print('Email: $email');
-                      }),
-                  child: Text('Entrar'))
+                  onPressed: () {
+                    setState(() {
+                      showPassword = !showPassword!;
+                      print('Email: $email');
+                    });
+
+                    if (!aceitoTermos) {
+                      print('Não aceitou os termos de usso do app');
+                    }
+                  },
+                  child: Text('Entrar')),
+              Text('Esqueceu sua senha?'),
             ],
           ),
         ),
