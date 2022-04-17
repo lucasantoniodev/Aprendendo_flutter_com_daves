@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum Genero { Masculino, Feminino, Outro }
-
 void main() {
   runApp(const MyApp());
 }
@@ -14,107 +12,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool? showPassword = true;
-  String? email;
-  bool aceitoTermos = false;
-  Genero genero = Genero.Masculino;
+  List<String> listaProdutos = [];
 
   @override
   Widget build(BuildContext context) {
+    for (int i = 1; i <= 100; i++) {
+      listaProdutos.add('Produto $i');
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(brightness: Brightness.dark),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Página de Cadastro'),
+          title: Text('List View'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            // Esticando todos os elementos para ocupar toda a horizontal
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text('Insira seus dados', style: TextStyle(fontSize: 25)),
-              TextField(
-                onChanged: (value) => {
-                  // print(text)
-                  if (value.contains('@'))
-                    {print('Email válido')}
-                  else
-                    {print('Email inválido')},
-
-                  email = value,
-                },
-                decoration: InputDecoration(
-                  labelText: 'E-mail',
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                ),
-                obscureText: showPassword!,
-              ),
-              Row(
-                children: [
-                  Radio(
-                    value: Genero.Masculino,
-                    groupValue: genero,
-                    onChanged: (Genero? generoSelecionado) {
-                      setState(() {
-                        genero = generoSelecionado!;
-                      });
-                    },
-                  ),
-                  Text('Masculino'),
-                  Radio(
-                    value: Genero.Feminino,
-                    groupValue: genero,
-                    onChanged: (Genero? generoSelecionado) {
-                      setState(() {
-                        genero = generoSelecionado!;
-                      });
-                    },
-                  ),
-                  Text('Feminino'),
-                  Radio(
-                    value: Genero.Outro,
-                    groupValue: genero,
-                    onChanged: (Genero? generoSelecionado) {
-                      setState(() {
-                        genero = generoSelecionado!;
-                      });
-                    },
-                  ),
-                  Text('Prefiro não dizer'),
-                ],
-              ),
-              Row(
-                children: [
-                  Checkbox(
-                      value: aceitoTermos,
-                      onChanged: (bool? checked) =>
-                          setState(() => aceitoTermos = checked!)),
-                  Text('Concordo com os termos de uso do app'),
-                ],
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      showPassword = !showPassword!;
-                      print('Email: $email');
-                      print('Gênero: ${genero.name}');
-                    });
-
-                    if (!aceitoTermos) {
-                      print('Não aceitou os termos de usso do app');
-                    }
-                  },
-                  child: Text('Entrar')),
-              Text('Esqueceu sua senha?'),
-            ],
-          ),
+        body: ListView.builder(
+          itemCount: listaProdutos.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(listaProdutos[index]),
+            );
+          },
         ),
       ),
     );
