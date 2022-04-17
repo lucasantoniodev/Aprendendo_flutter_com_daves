@@ -12,13 +12,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> listaProdutos = [];
-
   @override
   Widget build(BuildContext context) {
-    for (int i = 1; i <= 100; i++) {
+    /*
+    List<String> listaProdutos = [];
+    for (int i = 1; i <= 20; i++) {
       listaProdutos.add('Produto $i');
-    }
+    }*/
+    List listaProdutos = List.generate(21, (index) => 'Produto $index');
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -26,10 +28,16 @@ class _MyAppState extends State<MyApp> {
           title: Text('List View'),
         ),
         body: ListView.builder(
+          reverse:
+              true, // Inverte a posição da lista, exemplo de postagens novas do twitter o índice continua igual para o produto
           itemCount: listaProdutos.length,
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(listaProdutos[index]),
+              onTap: () {
+                print(
+                    'O produto selecionado foi ${listaProdutos[index]}, na posição $index');
+              },
             );
           },
         ),
