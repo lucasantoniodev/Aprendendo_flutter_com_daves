@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum Genero { Masculino, Feminino, Outro }
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,6 +17,7 @@ class _MyAppState extends State<MyApp> {
   bool? showPassword = true;
   String? email;
   bool aceitoTermos = false;
+  Genero genero = Genero.Masculino;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,40 @@ class _MyAppState extends State<MyApp> {
               ),
               Row(
                 children: [
+                  Radio(
+                    value: Genero.Masculino,
+                    groupValue: genero,
+                    onChanged: (Genero? generoSelecionado) {
+                      setState(() {
+                        genero = generoSelecionado!;
+                      });
+                    },
+                  ),
+                  Text('Masculino'),
+                  Radio(
+                    value: Genero.Feminino,
+                    groupValue: genero,
+                    onChanged: (Genero? generoSelecionado) {
+                      setState(() {
+                        genero = generoSelecionado!;
+                      });
+                    },
+                  ),
+                  Text('Feminino'),
+                  Radio(
+                    value: Genero.Outro,
+                    groupValue: genero,
+                    onChanged: (Genero? generoSelecionado) {
+                      setState(() {
+                        genero = generoSelecionado!;
+                      });
+                    },
+                  ),
+                  Text('Prefiro não dizer'),
+                ],
+              ),
+              Row(
+                children: [
                   Checkbox(
                       value: aceitoTermos,
                       onChanged: (bool? checked) =>
@@ -67,6 +104,7 @@ class _MyAppState extends State<MyApp> {
                     setState(() {
                       showPassword = !showPassword!;
                       print('Email: $email');
+                      print('Gênero: ${genero.name}');
                     });
 
                     if (!aceitoTermos) {
