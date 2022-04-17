@@ -12,6 +12,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool? showPassword = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,32 +27,26 @@ class _MyAppState extends State<MyApp> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // Esticando todos os elementos para ocupar toda a horizontal
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Insira seus dados'),
+              Text('Insira seus dados', style: TextStyle(fontSize: 25)),
               TextField(
                 decoration: InputDecoration(
-                  hintText:  'Login',
-                  prefixIcon: Icon(
-                    Icons.person,
-                    color: Colors.blue,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow)),
+                  labelText: 'E-mail',
                 ),
               ),
-              
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: Icon(Icons.ac_unit_outlined),
+                  labelText: 'Senha',           
                 ),
+                obscureText: showPassword!,
               ),
-
               Text('Esqueceu sua senha?'),
               ElevatedButton(
-                  onPressed: () => print('Entrou'), child: Text('Entrar'))
+                  onPressed: () => setState(() {
+                    showPassword = !showPassword!;
+                  }), child: Text('Entrar'))
             ],
           ),
         ),
