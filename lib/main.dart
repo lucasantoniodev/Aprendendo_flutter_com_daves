@@ -16,6 +16,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    String? email;
+    
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(brightness: Brightness.dark),
@@ -32,21 +35,33 @@ class _MyAppState extends State<MyApp> {
             children: [
               Text('Insira seus dados', style: TextStyle(fontSize: 25)),
               TextField(
+                onChanged: (value) => {
+                  // print(text)
+                  if(value.contains('@')){
+                    print('Email válido')
+                  } else {
+                    print('Email inválido')
+                  },
+
+                  email = value,
+                },
                 decoration: InputDecoration(
                   labelText: 'E-mail',
                 ),
               ),
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'Senha',           
+                  labelText: 'Senha',
                 ),
                 obscureText: showPassword!,
               ),
               Text('Esqueceu sua senha?'),
               ElevatedButton(
                   onPressed: () => setState(() {
-                    showPassword = !showPassword!;
-                  }), child: Text('Entrar'))
+                        showPassword = !showPassword!;
+                        print('Email: $email');
+                      }),
+                  child: Text('Entrar'))
             ],
           ),
         ),
