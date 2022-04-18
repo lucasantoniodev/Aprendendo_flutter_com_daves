@@ -12,35 +12,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int _opcaoSelecionada = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        endDrawer: Container(child: Text('iae')),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.blue[900],
-          fixedColor: Colors.white,
-          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType
+              .fixed, // Quando tem mais de 3 elementos é necessário usar
+          currentIndex: _opcaoSelecionada,
+          onTap: (int option) => setState(() {
+            _opcaoSelecionada = option;
+          }),
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Página inicial',
-              
-            ),
+                icon: Icon(Icons.home), label: 'Página inicial'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Pesquisa',
-            ),
+                icon: Icon(Icons.search), label: 'Pesquisa'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Perfil',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Configurações',
-            ),
+                icon: Icon(Icons.settings), label: 'Configurações'),
           ],
         ),
         appBar: AppBar(
