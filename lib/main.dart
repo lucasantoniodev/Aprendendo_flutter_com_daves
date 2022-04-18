@@ -16,14 +16,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List listaProdutos = List.generate(21, (index) => 'Produto $index');
-
   Future _getProdutos() async {
+    // Classe responsável por decodificar os dados recebidos da URL. Com ela é possível analisarmos todo o contexto que a url trás, como porta,host, corpo da mensagem e muitos outros.
     Uri uri = Uri.parse(
         'https://api.json-generator.com/templates/93KwgPK78mRS/data?access_token=dnfm5qhydk39j6ilkqkjkgq4p637gl04ib4owmp2');
+    // print(uri.port);
 
-    var response = await http.get(uri);
-    var dados = json.decode(response.body) as List;
+    var response = await http.get(
+        uri); // A requisição .get retorna uma String, por isso precisamos converter para json no próximo método;
+    print(response.body.runtimeType); // Tipo do retorno "String".
+
+    var dados = json.decode(response
+        .body); // Transformando uma lista/objeto String para Lista de objeto/map;
+    // print(dados.runtimeType);
 
     List<Produto> produtos = [];
 
@@ -45,8 +50,10 @@ class _MyAppState extends State<MyApp> {
     return produtos;
   }
 
+  
   @override
   Widget build(BuildContext context) {
+  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -66,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                       title: Text('${snapshot.data[index].descricao}'),
                       onTap: () {
                         print(
-                            'O produto selecionado foi ${listaProdutos[index]}, na posição $index');
+                            'O produto selecionado foi ${snapshot.data[index]}, na posição $index');
                       },
                     );
                   },
