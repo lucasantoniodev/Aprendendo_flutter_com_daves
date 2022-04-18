@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/page/home_page.dart';
+import 'package:flutter_application/page/profile.dart';
+import 'package:flutter_application/page/search.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +15,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final PageController _pageController = PageController();
+
   int _opcaoSelecionada = 0;
 
   @override
@@ -22,24 +27,45 @@ class _MyAppState extends State<MyApp> {
           type: BottomNavigationBarType
               .fixed, // Quando tem mais de 3 elementos é necessário usar
           currentIndex: _opcaoSelecionada,
-          onTap: (int option) => setState(() {
-            _opcaoSelecionada = option;
-          }),
+          onTap: (int option) {
+            setState(() {
+              _opcaoSelecionada = option;
+            });
+
+            _pageController.animateToPage(
+              option,
+              duration: const Duration(milliseconds: 1000),
+              curve: Curves.ease,
+            );
+          },
+
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: 'Página inicial'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.search), label: 'Pesquisa'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'Configurações'),
           ],
         ),
         appBar: AppBar(
           title: Text('Aplicativo exemplo BottomNavigatorBar'),
         ),
-        body: Center(
-          child: Text('Meu app'),
+        body:
+            // IndexedStack(
+            //   index: _opcaoSelecionada,
+            //   children: [
+            //     HomePage(),
+            //     Search(),
+            //     Profile(),
+            //   ],
+            // ),
+            PageView(
+          controller: _pageController,
+          children: [
+            HomePage(),
+            Search(),
+            Profile(),
+          ],
         ),
       ),
     );
