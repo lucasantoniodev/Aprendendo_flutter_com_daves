@@ -15,8 +15,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final PageController _pageController = PageController();
-
   int _opcaoSelecionada = 0;
 
   @override
@@ -27,18 +25,9 @@ class _MyAppState extends State<MyApp> {
           type: BottomNavigationBarType
               .fixed, // Quando tem mais de 3 elementos é necessário usar
           currentIndex: _opcaoSelecionada,
-          onTap: (int option) {
-            setState(() {
-              _opcaoSelecionada = option;
-            });
-
-            _pageController.animateToPage(
-              option,
-              duration: const Duration(milliseconds: 1000),
-              curve: Curves.ease,
-            );
-          },
-
+          onTap: (int option) => setState(() {
+            _opcaoSelecionada = option;
+          }),
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), label: 'Página inicial'),
@@ -50,17 +39,8 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Aplicativo exemplo BottomNavigatorBar'),
         ),
-        body:
-            // IndexedStack(
-            //   index: _opcaoSelecionada,
-            //   children: [
-            //     HomePage(),
-            //     Search(),
-            //     Profile(),
-            //   ],
-            // ),
-            PageView(
-          controller: _pageController,
+        body: IndexedStack(
+          index: _opcaoSelecionada,
           children: [
             HomePage(),
             Search(),
