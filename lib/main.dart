@@ -1,50 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'dart:async';
 
 void main() {
-  runApp(
-    // Provedor dinámico
-    ChangeNotifierProvider(
-        create: (context) => Pessoa(22, 'Teco'), child: MyApp()),
-  );
+  runApp(const MyApp());
 }
 
-// Classe com o modelo dos dados e com características da classe dinámica ChangeNotifier
-class Pessoa with ChangeNotifier {
-  String nome = 'João';
-  int idade = 30;
+class ContadorBloc {
+  // Fluxo
+  // Sink -  fluxo de entrada
+  StreamController<int> valorSink = StreamController();
 
-  Pessoa(this.idade, this.nome);
+  // Stream - fluxo de saída
+  Stream<int> get valorStream => valorSink.stream;
 
-  void incrementAge() {
-    this.idade++;
-    notifyListeners();
+  ContadorBloc() {
+    valorSink.add(0); // Valor base para começar
+  }
+
+  dispose() {
+    valorSink.close(); // Encerrando o fluxo
   }
 }
 
-// Utilizar um provoder permite que uma classe Stateless que não tem alterações passe a ter já que o está está sendo gerenciado pelo provider.
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final ContadorBloc bloc = ContadorBloc();
+  String texto = 'BLoC State Management';
+  
+
+ 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // Widget responsável por facilitar o consumo do provider, sem precisar escrever tanto para acessar os parâmetros
-        home: Consumer<Pessoa>(
-      builder: (context, pessoa, child) => Scaffold(
-        appBar: AppBar(title: Text('Exemplo Provider')),
-        body: Center(
-          child: Text(
-            // Consumer      // Modelo antigo, sem Consumer
-            '${pessoa.nome} tem ${context.select((Pessoa p) => p.idade)} anos de idade',
-            style: TextStyle(fontSize: 30),
+      home: StreamBuilder<int>(
+        stream: bloc.valorStream,
+        builder: (context, snapshot) => Scaffold(
+          appBar: AppBar(
+            title: Center(
+              child: Text(texto),
+            ),
+          ),
+          body: GestureDetector(
+            onTap: () {
+              print('Clicou');
+              // incrementaValor();
+              print(snapshot.data);
+              bloc.valorSink.add(snapshot.data! + 1);
+            },
+            child: Center(
+              child: Text(
+                snapshot.data.toString(),
+                textDirection: TextDirection.ltr,
+                style: TextStyle(fontSize: 50),
+              ),
+            ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => pessoa.incrementAge(),
-          // Antigo: Provider.of<Pessoa>(context, listen: false).incrementAge()),
-        ),
       ),
-    ));
+    );
   }
 }
